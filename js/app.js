@@ -13,29 +13,28 @@ const loadPhone = searchText => {
         .then(data => displayPhone(data.data));
 }
 const displayPhone = phones => {
-    console.log(phones);
     const phoneContainer = document.getElementById('phone-container');
     const disPlay20items = phones.slice(0, 20);
     phoneContainer.textContent = '';
-    for (const phone of disPlay20items) {
+    if (!phones) {
+        alert('No Phone found !')
+    }
+    disPlay20items?.forEach(phone => {
         const div = document.createElement('div');
         div.innerHTML = `<div class="col shadow-lg p-3">
-         <div class="card">
-             <img src="${phone.image}" class="card-img-top rounded" alt="...">
-             <div class="card-body">
-                 <h3 class="card-title fw-bold text-warning">${phone.phone_name}</h3>
-                 <h4 class="card-title">Brand : ${phone.brand}</h4>
-             </div>
-             <button class="btn btn-primary btn-rounded fw-bold fs-4" onclick="loadItemDetail('${phone.slug}');">EXPLORE MORE</button>
+     <div class="card">
+         <img src="${phone.image}" class="card-img-top rounded" alt="...">
+         <div class="card-body">
+             <h3 class="card-title fw-bold text-warning">${phone.phone_name}</h3>
+             <h4 class="card-title">Brand : ${phone.brand}</h4>
          </div>
-         
-     </div>`
+         <button class="btn btn-primary btn-rounded fw-bold fs-4" onclick="loadItemDetail('${phone.slug}');">EXPLORE MORE</button>
+     </div>
+     
+ </div>`
 
         phoneContainer.appendChild(div);
-    }
-
-
-
+    });
 }
 loadPhone('a');
 
@@ -47,9 +46,6 @@ const loadItemDetail = items => {
 }
 displayItemDetail = item => {
     console.log(item);
-    if (!item) {
-        alert('Nothing Found')
-    }
     const showDetail = document.getElementById('item-detail');
     showDetail.textContent = '';
 
@@ -61,8 +57,14 @@ displayItemDetail = item => {
      <div class="col-md-8">
          <div class="card-body">
              <h5 class="card-title">${item.name}</h5>
-             <p class="card-text"></p>
              <p class="card-text"><small class="text-muted">Release Date:${item.releaseDate}</small></p>
+             <p class="card-text">Brand: ${item.brand}</p>
+             <h6 d-inline-block>Main Features:</h6>
+             <p class="text-muted">Cheipset: ${item.mainFeatures.chipSet} ,Display: ${item.mainFeatures.displaySize}, Memory: ${item.mainFeatures.memory}
+             </p>
+             <p class="m-0">Others:</p>
+             <p>Bluetooth:<span class="text-muted">${item.others.Bluetooth},</span> GPS:<span class="text-muted">${item.others.GPS},</span>NFC: <span class="text-muted">${item.others.NFC},</span></p>
+             
          </div>
      </div>
  </div>
