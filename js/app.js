@@ -26,15 +26,50 @@ const displayPhone = phones => {
                  <h3 class="card-title fw-bold text-warning">${phone.phone_name}</h3>
                  <h4 class="card-title">Brand : ${phone.brand}</h4>
              </div>
-             <button class="btn btn-primary btn-rounded fw-bold fs-4" onclick="exploreMore();">EXPLORE MORE</button>
+             <button class="btn btn-primary btn-rounded fw-bold fs-4" onclick="loadItemDetail('${phone.slug}');">EXPLORE MORE</button>
          </div>
          
      </div>`
 
         phoneContainer.appendChild(div);
     }
-    /*  
- 
- }) */
+
+
+
 }
 loadPhone('a');
+
+const loadItemDetail = items => {
+    const url = `https://openapi.programming-hero.com/api/phone/${items}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayItemDetail(data.data));
+}
+displayItemDetail = item => {
+    console.log(item);
+    if (!item) {
+        alert('Nothing Found')
+    }
+    const showDetail = document.getElementById('item-detail');
+    showDetail.textContent = '';
+
+    const div = document.createElement('div');
+    div.innerHTML = ` <div class="row g-0">
+     <div class="col-md-4">
+         <img width="400px"src="${item.image}" class="img-fluid rounded-start" alt="...">
+     </div>
+     <div class="col-md-8">
+         <div class="card-body">
+             <h5 class="card-title">${item.name}</h5>
+             <p class="card-text"></p>
+             <p class="card-text"><small class="text-muted">Release Date:${item.releaseDate}</small></p>
+         </div>
+     </div>
+ </div>
+ `
+
+    showDetail.appendChild(div);
+
+}
+
+

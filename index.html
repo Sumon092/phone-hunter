@@ -34,26 +34,19 @@
                 <input type="text" name="" id="input-field"
                     class="form-control w-50 mx-auto m-5 p-2 d-inline rounded-lg" placeholder="Search for Phone....">
                 <button type="button" class="btn btn-outline-primary px-5 py-2 btn-rounded mb-2"
-                    onclick="searchPhone();">Search</button>
-
+                    onclick="searchPhone();">Search</button><br>
+                <div class="spinner-border text-primary " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </div>
+
+            <!-- spinner -->
+
         </section>
         <!-- Item detail section -->
         <section>
-            <div class="card mt-5 mb-5" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="..." class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                </div>
+            <div class="card mt-5 mb-5" style="max-width: 540px;" id="item-detail">
+
             </div>
         </section>
 
