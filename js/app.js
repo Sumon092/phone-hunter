@@ -1,9 +1,15 @@
 const searchGadgets = () => {
     const searchText = document.getElementById('input-field').value;
+    showSpinner('block');
     loadGadgets(searchText);
-
     // clear search field
     document.getElementById('input-field').value = '';
+
+}
+
+// spinner
+const showSpinner = disPlayType => {
+    document.getElementById('spiner').style.display = disPlayType;
 }
 
 const loadGadgets = searchText => {
@@ -12,17 +18,18 @@ const loadGadgets = searchText => {
         .then(res => res.json())
         .then(data => displayGadgetItems(data.data));
 }
-const displayGadgetItems = gadgets => {
 
+// show items in display
+const displayGadgetItems = gadgets => {
     if (gadgets.length <= 0 || gadgets == null) {
         alert("phone not found !");
-
+        showSpinner('none');
         return false;
     }
     const phoneContainer = document.getElementById('phone-container');
     const disPlay20items = gadgets.slice(0, 20);
     phoneContainer.textContent = '';
-
+    // display not more than 20 items
     disPlay20items?.forEach(gadget => {
         const div = document.createElement('div');
         div.innerHTML = `<div class="col shadow-lg p-3">
@@ -36,9 +43,9 @@ const displayGadgetItems = gadgets => {
      </div>
      
  </div>`
-
         phoneContainer.appendChild(div);
     });
+    showSpinner('none');
 }
 loadGadgets('a');
 
@@ -46,9 +53,9 @@ const loadGadgetDetail = items => {
     const url = `https://openapi.programming-hero.com/api/phone/${items}`
     fetch(url)
         .then(res => res.json())
-        .then(data => displayItemDetail(data.data));
+        .then(data => displayGadgetDetail(data.data));
 }
-displayItemDetail = item => {
+displayGadgetDetail = item => {
     console.log(item);
     const showDetail = document.getElementById('item-detail');
     showDetail.textContent = '';
@@ -66,7 +73,7 @@ displayItemDetail = item => {
 
             <!--  Main features-->
 
-             <h6 class="fw-bold">Main Features:</h6>
+             <h6 class="fw-bold">Main Features</h6>
              <p>
                 Cheipset : <span class="text-muted">${item.mainFeatures.chipSet},</span>  Display : <span class="text-muted">${item.mainFeatures.displaySize}</span>, Memory : <span class="text-muted">${item.mainFeatures.memory}</span>
              </p>
@@ -76,7 +83,7 @@ displayItemDetail = item => {
 
                 <!--Others features-->
 
-             <p class="m-0">Others:</p>
+             <p class="m-0 fw-bold">Others</p>
              <p>
                 Bluetooth :
                 <span class="text-muted"> ${item?.others?.Bluetooth ? item.others?.Bluetooth : 'No'}.</span> 

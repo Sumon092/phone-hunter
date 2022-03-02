@@ -36,8 +36,8 @@
                 <input type="text" name="" id="input-field"
                     class="form-control w-50 mx-auto m-5 p-2 d-inline rounded-lg" placeholder="Search for Phone....">
                 <button type="button" class="btn btn-outline-primary px-5 py-2 btn-rounded mb-2"
-                    onclick="searchGadgets();">Search</button><br>
-                <div class="spinner-border text-primary d-none" role="status">
+                    onclick="searchGadgets();">Search</button>
+                <div class="spinner-border text-primary text-center" role="status" id="spiner">
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
@@ -47,14 +47,14 @@
         </section>
         <!-- Item detail section -->
         <section class="container mx-auto">
-            <div class="card mt-5 mb-5 " style="max-width: 900px" id="item-detail">
+            <div class="card mt-5 mb-5 " style="max-width: 1000px" id="item-detail">
 
             </div>
         </section>
 
         <!-- Phone card section -->
         <section class="bg-gray mt-5">
-            <div class="row row-cols-1 row-cols-md-3 g-5 text-center  " id="phone-container" style="max-height:800px">
+            <div class="row row-cols-1 row-cols-md-3 g-5 text-center border-box" id="phone-container">
 
             </div>
         </section>
