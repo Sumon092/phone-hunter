@@ -1,6 +1,7 @@
 const searchGadgets = () => {
     const searchText = document.getElementById('input-field').value;
     showSpinner('block');
+    // toggleSearchResults('none');
     loadGadgets(searchText);
     // clear search field
     document.getElementById('input-field').value = '';
@@ -12,6 +13,11 @@ const showSpinner = disPlayType => {
     document.getElementById('spiner').style.display = disPlayType;
 }
 
+// display toggler
+const toggleSearchResults = disPlayType => {
+    document.getElementById('item-detail').style.display = disPlayType;
+}
+
 const loadGadgets = searchText => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     fetch(url)
@@ -21,6 +27,7 @@ const loadGadgets = searchText => {
 
 // show items in display
 const displayGadgetItems = gadgets => {
+    // document.getElementById('item-detail').style.display = 'none';
     if (gadgets.length <= 0 || gadgets == null) {
         alert("phone not found !");
         showSpinner('none');
@@ -29,7 +36,6 @@ const displayGadgetItems = gadgets => {
     const phoneContainer = document.getElementById('phone-container');
     const disPlay20items = gadgets.slice(0, 20);
     phoneContainer.textContent = '';
-    // display not more than 20 items
     disPlay20items?.forEach(gadget => {
         const div = document.createElement('div');
         div.innerHTML = `<div class="col shadow-lg p-3">
@@ -46,6 +52,7 @@ const displayGadgetItems = gadgets => {
         phoneContainer.appendChild(div);
     });
     showSpinner('none');
+    toggleSearchResults('none');
 }
 loadGadgets('a');
 
@@ -56,7 +63,6 @@ const loadGadgetDetail = items => {
         .then(data => displayGadgetDetail(data.data));
 }
 displayGadgetDetail = item => {
-    console.log(item);
     const showDetail = document.getElementById('item-detail');
     showDetail.textContent = '';
 
@@ -77,6 +83,7 @@ displayGadgetDetail = item => {
              <p>
                 Cheipset : <span class="text-muted">${item.mainFeatures.chipSet},</span>  Display : <span class="text-muted">${item.mainFeatures.displaySize}</span>, Memory : <span class="text-muted">${item.mainFeatures.memory}</span>
              </p>
+             
              <!--Sensor-->
              <P class="fw-bold mb-0">Sensor</p>
              <p>${item.mainFeatures.sensors}</p?
@@ -102,7 +109,8 @@ displayGadgetDetail = item => {
  `
 
     showDetail.appendChild(div);
-
+    toggleSearchResults('block');
 }
+
 
 
