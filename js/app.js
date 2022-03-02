@@ -1,34 +1,38 @@
-const searchPhone = () => {
+const searchGadgets = () => {
     const searchText = document.getElementById('input-field').value;
-    loadPhone(searchText);
+    loadGadgets(searchText);
 
     // clear search field
     document.getElementById('input-field').value = '';
 }
 
-const loadPhone = searchText => {
+const loadGadgets = searchText => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     fetch(url)
         .then(res => res.json())
-        .then(data => displayPhone(data.data));
+        .then(data => displayGadgetItems(data.data));
 }
-const displayPhone = phones => {
-    const phoneContainer = document.getElementById('phone-container');
-    const disPlay20items = phones.slice(0, 20);
-    phoneContainer.textContent = '';
-    if (!phones) {
-        alert('No Phone found !')
+const displayGadgetItems = gadgets => {
+
+    if (gadgets.length <= 0 || gadgets == null) {
+        alert("phone not found !");
+
+        return false;
     }
-    disPlay20items?.forEach(phone => {
+    const phoneContainer = document.getElementById('phone-container');
+    const disPlay20items = gadgets.slice(0, 20);
+    phoneContainer.textContent = '';
+
+    disPlay20items?.forEach(gadget => {
         const div = document.createElement('div');
         div.innerHTML = `<div class="col shadow-lg p-3">
      <div class="card">
-         <img src="${phone.image}" class="card-img-top rounded" alt="...">
+            <img src="${gadget.image}" class="card-img-top rounded" alt="...">
          <div class="card-body">
-             <h3 class="card-title fw-bold text-warning">${phone.phone_name}</h3>
-             <h4 class="card-title">Brand : ${phone.brand}</h4>
+             <h3 class="card-title fw-bold text-primary">${gadget.phone_name}</h3>
+             <h4 class="card-title">Brand : ${gadget.brand}</h4>
          </div>
-         <button class="btn btn-primary btn-rounded fw-bold fs-4" onclick="loadItemDetail('${phone.slug}');">EXPLORE MORE</button>
+         <button class="btn btn-primary btn-rounded fw-bold fs-5" onclick="loadGadgetDetail('${gadget.slug}');">EXPLORE MORE</button>
      </div>
      
  </div>`
@@ -36,9 +40,9 @@ const displayPhone = phones => {
         phoneContainer.appendChild(div);
     });
 }
-loadPhone('a');
+loadGadgets('a');
 
-const loadItemDetail = items => {
+const loadGadgetDetail = items => {
     const url = `https://openapi.programming-hero.com/api/phone/${items}`
     fetch(url)
         .then(res => res.json())
@@ -56,14 +60,34 @@ displayItemDetail = item => {
      </div>
      <div class="col-md-8">
          <div class="card-body">
-             <h5 class="card-title">${item.name}</h5>
-             <p class="card-text"><small class="text-muted">Release Date:${item.releaseDate}</small></p>
-             <p class="card-text">Brand: ${item.brand}</p>
-             <h6 d-inline-block>Main Features:</h6>
-             <p class="text-muted">Cheipset: ${item.mainFeatures.chipSet} ,Display: ${item.mainFeatures.displaySize}, Memory: ${item.mainFeatures.memory}
+             <h4 class="card-title fw-bold">${item.name}</h4>
+             <p class="card-text lh-sm"><small class="text-muted">${item?.releaseDate ? item?.releaseDate : 'Released date : Unknown'}</small></p>
+             <p class="card-text fw-bold">Brand: <span        class="text-muted">${item.brand}</p>
+
+            <!--  Main features-->
+
+             <h6 class="fw-bold">Main Features:</h6>
+             <p>
+                Cheipset : <span class="text-muted">${item.mainFeatures.chipSet},</span>  Display : <span class="text-muted">${item.mainFeatures.displaySize}</span>, Memory : <span class="text-muted">${item.mainFeatures.memory}</span>
              </p>
+             <!--Sensor-->
+             <P class="fw-bold mb-0">Sensor</p>
+             <p>${item.mainFeatures.sensors}</p?
+
+                <!--Others features-->
+
              <p class="m-0">Others:</p>
-             <p>Bluetooth:<span class="text-muted">${item.others.Bluetooth},</span> GPS:<span class="text-muted">${item.others.GPS},</span>NFC: <span class="text-muted">${item.others.NFC},</span></p>
+             <p>
+                Bluetooth :
+                <span class="text-muted"> ${item?.others?.Bluetooth ? item.others?.Bluetooth : 'No'}.</span> 
+                GPS :
+                <span class="text-muted"> ${item?.others?.GPS ? item?.others?.GPS : 'No'}. </span>
+                NFC : 
+                <span class="text-muted"> ${item?.others?.NFC ? item?.others?.NFC : 'No'}.</span> 
+                Radio : <span class="text-muted"> ${item?.others?.Radio ? item?.others?.Radio : 'No'}.</span> 
+                USB : <span class="text-muted"> ${item?.others?.USB ? item?.others?.USB : 'No'}.</span> 
+                WLAN : <span class="text-muted"> ${item?.others?.WLAN ? item?.others?.WLAN : "No"}.</span>
+            </p>
              
          </div>
      </div>
