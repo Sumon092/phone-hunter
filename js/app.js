@@ -27,10 +27,8 @@ const loadGadgets = searchText => {
 
 // show items in display
 const displayGadgetItems = gadgets => {
-    // document.getElementById('item-detail').style.display = 'none';
     if (gadgets.length <= 0 || gadgets == null) {
         alert("phone not found !");
-        showSpinner('none');
         return false;
     }
     const phoneContainer = document.getElementById('phone-container');
@@ -83,7 +81,7 @@ displayGadgetDetail = item => {
              <p>
                 Cheipset : <span class="text-muted">${item.mainFeatures.chipSet},</span>  Display : <span class="text-muted">${item.mainFeatures.displaySize}</span>, Memory : <span class="text-muted">${item.mainFeatures.memory}</span>
              </p>
-             
+
              <!--Sensor-->
              <P class="fw-bold mb-0">Sensor</p>
              <p>${item.mainFeatures.sensors}</p?
